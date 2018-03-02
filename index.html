@@ -7,35 +7,82 @@
 	<script src="assets/javascript/game.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
+<script type="text/javascript">
+	
+	var letter2Guess;
+	var guesses = 0;
+	var losses = 0;
+	var guessesLeft = 9;
+	var output = "";
+	var lettersToGuess = ["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"];
+	function generateLetter() 
+	{
+		var res = lettersToGuess[Math.floor(Math.random() * 26)];
+		console.log(res);
+		return res;
+	}
+	document.onkeyup = function(event)
+	{
+		
+		var inputValue = event.key;
+		output = output + ',' + inputValue;
+		if(inputValue == letter2Guess)
+		{
+			letter2Guess = generateLetter();
+			guesses++;
+			guessesLeft = 9;
+			output="";
+		}
+		else
+		{
+			guessesLeft--;
+		}
+		
+
+		if(guessesLeft == 0)
+		{
+			letter2Guess = generateLetter();
+			guessesLeft = 9;
+			losses++;
+			output = "";
+		}
+		document.getElementById("wins").innerHTML = guesses;
+		document.getElementById("losses").innerHTML = losses;
+		document.getElementById("guessesLeft").innerHTML = guessesLeft;
+		document.getElementById("txtGuessesSoFar").innerHTML = output;
+	}
+
+</script>
+
+
 </head>
 <body>
+<script type="text/javascript">
+	letter2Guess = generateLetter();
+	console.log("-------------------" + letter2Guess);
 
-<h1>The Psychic Game</h1>
-<h2>Chuess what letter I'm thinking of</h2>
-<div class="rTable">
-<div class="rTableRow">
-
-<div class="rTableHead">&nbsp;</div>
-</div>
-<div class="rTableRow">
-<div class="rTableCell">Wins</div>
-<div class="rTableCell" id="wins"></a></div>
-<div class="rTableCell">Losses</div>
-
-<div class="rTableCell"><a href="tel:9876532432"></a></div>
-
-</div>
-<div class="rTableCell">Guesses Left</div>
-
-<div class="rTableCell"><a href="tel:9876532432"></a></div>
-
-</div>
-</div>
-<div class="rTableRow">
+</script>
 
 
-
-</div>
+<label style="font-size: 30px;font-weight: bold;">The Psychic Game</label>
+<br>
+<br>
+<label>Guess what letter I'm thinking of</label>
+<br>
+<br>
+<label>Wins:</label><label id="wins"></label>
+<br>
+<br>
+<label>Losses:</label><label id="losses"></label>
+<br>
+<br>
+<label>Guesses Left:</label><label id="guessesLeft"></label>
+<br>
+<br>
+<label>Your Guesses so far:</label><span type="text" id="txtGuessesSoFar" name="guessesSoFar" style="border:none"/>
+<br>
+<br>
 
 
 </body>
